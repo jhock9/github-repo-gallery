@@ -2,6 +2,8 @@
 const overview = document.querySelector(".overview");
 const username = "jhock9";
 const repoList = document.querySelector(".repo-list");
+const repoInfo = document.querySelector(".repos");
+const repoData = document.querySelector(".repo-data");
 
 const gitUserInfo = async function () {
   const userInfo = await fetch(`https://api.github.com/users/${username}`);
@@ -32,11 +34,10 @@ const displayUserInfo = function (userData) {
 
 const gitRepos = async function () {
   const fetchRepos = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=100`);
-  const repoData = await fetchRepos.json();
-  // console.log(repoData);
-  displayRepos(repoData);
+  const repoApiData = await fetchRepos.json();
+  // console.log(repoApiData);
+  displayRepos(repoApiData);
 }
-
 
 const displayRepos = function (repos) {
   for (const repo of repos) {
@@ -44,5 +45,20 @@ const displayRepos = function (repos) {
     repoItem.classList.add("repo");
     repoItem.innerHTML = `<h3>${repo.name}</h3>`;
     repoList.append(repoItem);      
-  }
+  };
 };
+
+repoList.addEventListener("click", function (e) {
+  if (e.target.matches("h3")) {
+    const repoName = e.target.innerText;
+    getRepoInfo(repoName);
+  };
+});
+
+const getRepoInfo = async function (repoName) {
+  const fetchInfo = await fetch(`https://api.github.com/repos/${username}/${repoName}`);
+  const repoInfo = await fetchInfo.json();
+  console.log(repoInfo);
+};
+
+// Create an Array of Languages STEP
