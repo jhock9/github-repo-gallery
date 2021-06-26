@@ -27,36 +27,22 @@ const displayUserInfo = function (userData) {
     </div>
   `;
   overview.append(div);
+  gitRepos();
 };
 
 const gitRepos = async function () {
-  const fetchRepos = await fetch(`https://api.github.com/users/${username}/repos?sort=created&per_page=100`);
+  const fetchRepos = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=100`);
   const repoData = await fetchRepos.json();
   // console.log(repoData);
   displayRepos(repoData);
 }
 
-gitRepos();
 
 const displayRepos = function (repos) {
-
-for (const repo of  )
-
-/*
-  const div = document.createElement("div");
-  div.classList.add("user-info");
-  div.innerHTML = `
-    <figure>
-      <img alt="user avatar" src=${userData.avatar_url} />
-    </figure>
-    <div>
-      <p><strong>Name:</strong> ${userData.name}</p>
-      <p><strong>Bio:</strong> ${userData.bio}</p>
-      <p><strong>Location:</strong> ${userData.location}</p>
-      <p><strong>Number of public repos:</strong> ${userData.public_repos}</p>
-    </div>
-  `;
-  repoList.append(div);
-*/
+  for (const repo of repos) {
+    const repoItem = document.createElement("li");
+    repoItem.classList.add("repo");
+    repoItem.innerHTML = `<h3>${repo.name}</h3>`;
+    repoList.append(repoItem);      
+  }
 };
-
