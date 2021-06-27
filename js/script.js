@@ -1,9 +1,17 @@
 // Where profile info will appear
 const overview = document.querySelector(".overview");
+// Github Username
 const username = "jhock9";
+// List of all repos on Github
 const repoList = document.querySelector(".repo-list");
+// Div container for all repos
 const allReposContainer = document.querySelector(".repos");
+// Individual repo info
 const repoData = document.querySelector(".repo-data");
+// Back button to return to full list of repos
+const viewReposButton = document.querySelector(".view-repos");
+// Search bar for repos
+const filterInput = document.querySelector(".filter-repos")
 
 const gitUserInfo = async function () {
   const userInfo = await fetch(`https://api.github.com/users/${username}`);
@@ -40,6 +48,7 @@ const gitRepos = async function () {
 }
 
 const displayRepos = function (repos) {
+  filterInput.classList.remove("hide");
   for (const repo of repos) {
     const repoItem = document.createElement("li");
     repoItem.classList.add("repo");
@@ -77,6 +86,7 @@ const displayRepoInfo = function (repoInfo, languages) {
   repoData.innerHTML = "";
   repoData.classList.remove("hide");
   allReposContainer.classList.add("hide");
+  viewReposButton.classList.remove("hide");
   const div = document.createElement("div");
   div.innerHTML = `
   <h3>Name: ${repoInfo.name}</h3>
@@ -87,3 +97,26 @@ const displayRepoInfo = function (repoInfo, languages) {
   `;
   repoData.append(div);
 };
+
+viewReposButton.addEventListener("click", function () {
+  allReposContainer.classList.remove("hide");
+  repoData.classList.add("hide");
+  viewReposButton.classList.add("hide");
+});
+
+//Dynamic Search
+filterInput.addEventListener("input", function (e) {
+  const searchText = e.target.value;
+  // console.log(searchInput);
+  const repos = document.querySelectorAll(".repo");
+  const searchLowerText = searchText.toLowerCase();
+  
+  for (repo of repos) {
+    const repoLowerText = repo.innerText.toLowerCase();
+    if (repoLowerText.includes(searchLowerText)) {
+      repo.classList.remove("hide");
+    } else {
+      repo.classList.add("hide");
+    };
+  };
+});
