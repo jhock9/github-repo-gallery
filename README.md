@@ -4,9 +4,7 @@ GitHub Repo Gallery is a web application that uses the GitHub API to display dat
 
 ## Project Description
 
-This application pulls data from a GitHub account using the GitHub API. It populates the account name, bio, location, and the number of public repos. Users can use the dynamic search functionality to search repo names. Once they've found a repo, they can click on it to see more information and get a link to the repo on GitHub.
-
-It's built with HTML, CSS, and JavaScript.
+This application pulls data from a GitHub account using the GitHub API. It populates the account name, bio, location, and the number of public repos. Users can use the dynamic search functionality to search repo names. Once they've found a repo, they can click on it to see more information and get a link to the repo on GitHub. It's built with HTML, CSS, and JavaScript.
 
 ## Usage
 
